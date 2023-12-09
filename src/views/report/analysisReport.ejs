@@ -1,0 +1,58 @@
+<form action="/report/" method="POST">
+    <label for="filter">Lọc theo:</label>
+    <select name="filter" id="filter">
+        <option value="today">Hôm nay</option>
+        <option value="yesterday">Hôm qua</option>
+        <option value="last7days">7 ngày trước</option>
+        <option value="thisMonth">Tháng này</option>
+        <option value="custom">Thời gian cụ thể</option>
+    </select>
+    <br>
+
+    <label for="startDate">Từ ngày:</label>
+    <input type="date" id="startDate" name="startDate">
+    
+    <label for="endDate">Đến ngày:</label>
+    <input type="date" id="endDate" name="endDate">
+    
+    <br>
+    <input type="submit" value="Lọc">
+</form>
+
+<% if (listBill.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Total Money</th>
+                    <th>Total Products</th>
+                    <th>Money Give</th>
+                    <th>Money Back</th>
+                    <th>Customer</th>
+                    <th>Staff</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% listBill.forEach(function(bill) { %>
+                    <tr>
+                        <td><%= bill.date_bill.toDateString() %></td>
+                        <td><%= bill.total_money_bill %></td>
+                        <td><%= bill.total_product_bill %></td>
+                        <td><%= bill.money_give_bill %></td>
+                        <td><%= bill.money_back_bill %></td>
+                        <td><%= bill.customer %></td>
+                        <td><%= bill.staff %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <h2>Tổng hợp thông tin</h2>
+        <p>Tổng số tiền đã nhận: <%= totalReceivedMoney %></p>
+        <p>Số lượng đơn hàng: <%= totalOrders %></p>
+        <p>Số lượng sản phẩm: <%= totalProducts %></p>
+        <p>Tổng số tiền khách đưa: <%= totalMoneyGive %></p>
+        <p>Tổng số tiền thối lại: <%= totalMoneyBack %></p>
+    <% } else { %>
+        <p>No bills found.</p>
+    <% } %>

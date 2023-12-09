@@ -1,0 +1,175 @@
+<h1>List of Product Admin</h1>
+<button onclick="openAddModal()">Add Product</button>
+<table>
+    <tr>
+        <th>Code Product</th>
+        <th>Name Product</th>
+        <th>Price Buy Product</th>
+        <th>Price Sell Product</th>
+        <th>Day Add Product</th>
+        <th>Process</th>
+    </tr>
+    <% list_product_admin.forEach(product=> { %>
+        <tr>
+            <td>
+                <%= product.code_product %>
+            </td>
+            <td>
+                <%= product.name_product %>
+            </td>
+            <td>
+                <%= product.price_buy_product %>
+            </td>
+            <td>
+                <%= product.price_sell_product %>
+            </td>
+            <td>
+                <%= product.day_add_product %>
+            </td>
+            <td>
+                <button onclick="openEditModal(
+                    '<%= product._id %>', 
+                    '<%= product.code_product %>', 
+                    '<%= product.name_product %>', 
+                    '<%= product.price_buy_product %>', 
+                    '<%= product.price_sell_product %>', 
+                )">Edit</button>
+            </td>
+            <td>
+                <button onclick="deleteProduct('<%= product._id %>')">Delete</button>
+            </td>
+        </tr>
+        <% }) %>
+</table>
+
+<div id="addProductModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeAddModal()">&times;</span>
+        <h2>Add New Product</h2>
+        <form id="addForm">
+            Code Product: <input type="text" id="addCode"><br>
+            Name Product: <input type="text" id="addName"><br>
+            Price Buy Product: <input type="number" id="addPriceBuy"><br>
+            Price Sell Product: <input type="number" id="addPriceSell"><br>
+            <button type="submit" onclick="submitAddForm()">Add Product</button>
+        </form>
+    </div>
+</div>
+
+<div id="editModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2>Edit Product</h2>
+        <form id="editForm">
+            <input type="hidden" id="productId">
+            Code Product: <input type="text" id="editCode"><br>
+            Name Product: <input type="text" id="editName"><br>
+            Price Buy Product: <input type="text" id="editPriceBuy"><br>
+            Price Sell Product: <input type="text" id="editPriceSell"><br>
+            <button type="submit" onclick="submitEditForm()">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    async function deleteProduct(id) {
+        try {
+            const response = await fetch(`/admin/delete-product/${id}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                console.error('Có lỗi xảy ra khi xóa sản phẩm');
+            }
+        } catch (err) {
+            console.error('Error:', err);
+        }
+    }
+
+    function openEditModal(id, code, name, priceBuy, priceSell, dayAdd) {
+        document.getElementById('productId').value = id;
+        document.getElementById('editCode').value = code;
+        document.getElementById('editName').value = name;
+        document.getElementById('editPriceBuy').value = priceBuy;
+        document.getElementById('editPriceSell').value = priceSell;
+
+        document.getElementById('editModal').style.display = 'block';
+    }
+
+    function closeEditModal() {
+        document.getElementById('editModal').style.display = 'none';
+    }
+
+    async function submitEditForm() {
+        const id = document.getElementById('productId').value;
+        const code = document.getElementById('editCode').value;
+        const name = document.getElementById('editName').value;
+        const priceBuy = document.getElementById('editPriceBuy').value;
+        const priceSell = document.getElementById('editPriceSell').value;
+
+        try {
+            const response = await fetch(`/admin/edit-product/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    code_product: code,
+                    name_product: name,
+                    price_buy_product: priceBuy,
+                    price_sell_product: priceSell,
+                })
+            });
+
+            if (response.ok) {
+                closeModal();
+                window.location.reload();
+            } else {
+                console.error('Có lỗi xảy ra khi cập nhật sản phẩm');
+            }
+        } catch (err) {
+            console.error('Error:', err);
+        }
+    }
+
+    function openAddModal() {
+        document.getElementById('addProductModal').style.display = 'block';
+    }
+
+    function closeAddModal() {
+        document.getElementById('addProductModal').style.display = 'none';
+    }
+
+    async function submitAddForm() {
+        const code = document.getElementById('addCode').value;
+        const name = document.getElementById('addName').value;
+        const priceBuy = document.getElementById('addPriceBuy').value;
+        const priceSell = document.getElementById('addPriceSell').value;
+
+        try {
+            const response = await fetch('/admin/add-product', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    code_product: code,
+                    name_product: name,
+                    price_buy_product: priceBuy,
+                    price_sell_product: priceSell,
+                })
+            });
+
+            if (response.ok) {
+                closeAddModal();
+                window.location.reload();
+            } else {
+                console.error('Có lỗi xảy ra khi thêm sản phẩm');
+            }
+        } catch (err) {
+            console.error('Error:', err);
+        }
+    }
+</script>

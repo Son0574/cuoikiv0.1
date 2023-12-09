@@ -1,0 +1,25 @@
+<h1>List of Product Staff</h1>
+<table>
+    <tr>
+        <th>Code Product</th>
+        <th>Name Product</th>
+        <th>Price Product</th>
+        <th>Day Add Product</th>
+    </tr>
+    <% list_product.forEach(product=> { %>
+        <tr>
+            <td>
+                <%= product.code_product %>
+            </td>
+            <td>
+                <%= product.name_product %>
+            </td>
+            <td>
+                <%= product.price_sell_product %>
+            </td>
+            <td>
+                <%= product.day_add_product %>
+            </td>
+        </tr>
+    <% }) %>
+</table>

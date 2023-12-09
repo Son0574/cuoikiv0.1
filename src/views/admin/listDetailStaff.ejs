@@ -1,0 +1,89 @@
+<h1>List of Detail Staff</h1>
+<table>
+    <% if(staff) { %>
+        <tr>
+            <th>Avatar Staff</th>
+            <th>Name Staff</th>
+            <th>Email Staff</th>
+            <th>Status Staff</th>
+            <th>Date Staff</th>
+            <th>Process</th>
+        </tr>
+        <tr>
+            <td>
+                <img src="<%= staff.avatar_staff %>" alt="Avatar">
+            </td>
+            <td>
+                <%= staff.name_staff %>
+            </td>
+            <td>
+                <%= staff.email_staff %>
+            </td>
+            <td>
+                <%= staff.status_staff %>
+            </td>
+            <td>
+                <%= staff.date_staff %>
+            </td>
+            <td>
+                <button onclick="changeStatusStaff(
+                    '<%= staff._id %>', 
+                    '<%= staff.status_staff %>'
+                )">Status</button>
+
+                <button onclick="sendTokenToEmailStaff(
+                    '<%= staff._id %>'
+                )">Send Token To Email Staff</button>
+            </td>
+        </tr>
+        <% } else { %>
+            <p>No staff information available.</p>
+            <% } %>
+</table>
+
+<script>
+    async function changeStatusStaff(id, currentStatus) {
+        try {
+            const response = await fetch('/admin/change-status-staff', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    staffId: id,
+                    currentStatus: currentStatus
+                })
+            });
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                console.error('Có lỗi xảy ra khi cập nhật trạng thái');
+            }
+        } catch (err) {
+            console.error('Error:', err);
+        }
+    }
+
+    async function sendTokenToEmailStaff(id) {
+        try {
+            const response = await fetch('/admin/send-token-to-email-staff', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    staffId: id
+                })
+            });
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                console.error('Có lỗi xảy ra khi cập nhật trạng thái');
+            }
+        } catch (err) {
+            console.error('Error:', err);
+        }
+    }
+</script>

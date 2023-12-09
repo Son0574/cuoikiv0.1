@@ -1,0 +1,25 @@
+<h1>List of Customer</h1>
+<table>
+    <tr>
+        <th>Phone</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Process</th>
+    </tr>
+    <% list_customer.forEach(customer=> { %>
+        <tr>
+            <td>
+                <%= customer.phone_customer %>
+            </td>
+            <td>
+                <%= customer.name_customer %>
+            </td>
+            <td>
+                <%= customer.address_customer %>
+            </td>
+            <td>
+                <a href="/staff/list-bill-customer/<%= customer._id %>">Xem chi tiết đơn hàng</a>
+            </td>
+        </tr>
+    <% }) %>
+</table>

@@ -1,0 +1,32 @@
+<h1>List of Staff</h1>
+<table>
+    <tr>
+        <th>Avatar Staff</th>
+        <th>Name Staff</th>
+        <th>Email Staff</th>
+        <th>Status Staff</th>
+        <th>Date Staff</th>
+    </tr>
+    <% list_staff.forEach(staff=> { %>
+        <tr>
+            <td>
+                <img src="<%= staff.avatar_staff %>" alt="Avatar">
+            </td>
+            <td>
+                <%= staff.name_staff %>
+            </td>
+            <td>
+                <%= staff.email_staff %>
+            </td>
+            <td>
+                <%= staff.status_staff %>
+            </td>
+            <td>
+                <%= staff.date_staff %>
+            </td>
+            <td>
+                <a href="/admin/list-detail-staff/<%= staff._id %>">Xem chi tiết</a>
+            </td>
+        </tr>
+    <% }) %>
+</table>

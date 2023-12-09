@@ -1,0 +1,86 @@
+<h1>Bill Information</h1>
+
+<p>Total Product: <span id="totalProduct">
+        <%= totalProduct %>
+    </span></p>
+<p>Total Money: <span id="totalMoney">
+        <%= totalMoney %>
+    </span></p>
+
+<label for="moneyGive">Money Give:</label>
+<input type="number" id="moneyGive" required>
+
+<p>Money Back: <span id="moneyBack">Not enough money</span></p>
+
+<label for="nameCustomer">Name:</label>
+<input type="text" id="nameCustomer">
+
+<label for="phoneCustomer">Phone:</label>
+<input type="text" id="phoneCustomer">
+
+<label for="addressCustomer">Address:</label>
+<input type="text" id="addressCustomer">
+
+<button id="submitBtn" style="display: none;">Submit</button>
+
+<script>
+    const moneyGiveInput = document.getElementById('moneyGive');
+    const totalMoneySpan = document.getElementById('totalMoney');
+    const moneyBackSpan = document.getElementById('moneyBack');
+    const submitBtn = document.getElementById('submitBtn');
+
+    moneyGiveInput.addEventListener('input', function () {
+        const totalMoney = parseFloat(totalMoneySpan.textContent);
+        const moneyGive = parseFloat(moneyGiveInput.value);
+
+        const moneyBack = moneyGive - totalMoney;
+
+        moneyBackSpan.textContent = moneyBack >= 0 ? moneyBack.toFixed(2) : 'Not enough money';
+
+        if (moneyBack >= 0) {
+            submitBtn.style.display = 'block'; 
+        } else {
+            submitBtn.style.display = 'none'; 
+        }
+    });
+
+    document.getElementById('submitBtn').addEventListener('click', function () {
+        const nameCustomer = document.getElementById('nameCustomer').value;
+        const phoneCustomer = document.getElementById('phoneCustomer').value;
+        const addressCustomer = document.getElementById('addressCustomer').value;
+        const moneyGive = parseFloat(document.getElementById('moneyGive').value);
+        const moneyBack = parseFloat(document.getElementById('moneyBack').textContent);
+        const totalProduct = parseFloat(document.getElementById('totalProduct').textContent);
+        const totalMoney = parseFloat(document.getElementById('totalMoney').textContent);
+
+        const data = {
+            nameCustomer,
+            phoneCustomer,
+            addressCustomer,
+            moneyGive,
+            moneyBack,
+            totalProduct,
+            totalMoney,
+        };
+
+        fetch('/system/payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('POST request succeeded with JSON response', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the POST request:', error);
+            });
+    });
+</script>

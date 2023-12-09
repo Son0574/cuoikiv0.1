@@ -1,0 +1,49 @@
+<h1>Checkout</h1>
+
+<form action="/system/" method="POST">
+    <input type="text" name="productCode" placeholder="Nhập mã sản phẩm">
+    <button type="submit">Thêm</button>
+</form>
+
+<h2>Danh sách sản phẩm được thêm:</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Mã sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% products.forEach(product=> { %>
+            <tr>
+                <td>
+                    <%= product.code_product %>
+                </td>
+                <td>
+                    <%= product.name_product %>
+                </td>
+                <td>
+                    <%= product.price_sell_product %>
+                </td>
+                <td>
+                    <%= product.quantity %>
+                </td>
+            </tr>
+            <% }) %>
+    </tbody>
+</table>
+
+<button onclick="clearProductTable()">Reset danh sách sản phẩm</button>
+<button onclick="redirectToPayment()">Chuyển đến trang thanh toán</button>
+
+<script>
+    function redirectToPayment() {
+        window.location.href = '/system/payment';
+    }
+
+    function clearProductTable() {
+        window.location.href = '/system/clear';
+    }
+</script>

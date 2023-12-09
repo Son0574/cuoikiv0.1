@@ -1,0 +1,39 @@
+<h1>Bill Detail</h1>
+<ul>
+    <li>Total Money: <%= bill.total_money_bill %>
+    </li>
+    <li>Total Products: <%= bill.total_product_bill %>
+    </li>
+    <li>Money Given: <%= bill.money_give_bill %>
+    </li>
+    <li>Money Back: <%= bill.money_back_bill %>
+    </li>
+    <li>Date: <%= bill.date_bill %>
+    </li>
+    <li>Customer ID: <%= bill.customer %>
+    </li>
+    <li>Staff ID: <%= bill.staff %>
+    </li>
+</ul>
+
+<h1>List of Product Bill</h1>
+<table>
+    <tr>
+        <th>Code Product</th>
+        <th>Name Product</th>
+        <th>Quantity Product</th>
+    </tr>
+    <% list_product_bill.forEach(product_bill=> { %>
+        <tr>
+            <td>
+                <%= product_bill.product.code_product %>
+            </td>
+            <td>
+                <%= product_bill.product.name_product %>
+            </td>
+            <td>
+                <%= product_bill.quantity_product_bill %>
+            </td>
+        </tr>
+    <% }) %>
+</table>

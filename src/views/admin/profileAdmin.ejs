@@ -1,0 +1,40 @@
+<h1>Profile Admin</h1>
+<table>
+    <% if(admin) { %>
+        <tr>
+            <th>Avatar Admin</th>
+            <th>Name Admin</th>
+        </tr>
+        <tr>
+            <td>
+                <img src="<%= admin.avatar_admin %>" alt="Avatar" width="100" height="100">
+            </td>
+            <td>
+                <%= admin.name_admin %>
+            </td>
+        </tr>
+    <% } else { %>
+        <p>No admin information available.</p>
+    <% } %>
+</table>
+
+<h1>Change Password</h1>
+<form action="/admin/change-password-admin" method="POST">
+    <label for="currentPassword">Current Password:</label>
+    <input type="password" id="currentPassword" name="currentPassword" required><br><br>
+
+    <label for="newPassword">New Password:</label>
+    <input type="password" id="newPassword" name="newPassword" required><br><br>
+
+    <label for="confirmPassword">Confirm New Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+
+    <input type="submit" value="Change Password">
+</form>
+
+<h1>Upload Avatar</h1>
+<form action="/admin/upload-avatar-admin" method="POST" enctype="multipart/form-data">
+    <label for="avatar">Upload Avatar:</label>
+    <input type="file" id="avatar_admin" name="avatar_admin" accept="image/*" required><br><br>
+    <input type="submit" value="Upload Avatar">
+</form>

@@ -1,0 +1,53 @@
+<h1>Profile Staff</h1>
+<table>
+    <% if(staff) { %>
+        <tr>
+            <th>Avatar Staff</th>
+            <th>Name Staff</th>
+            <th>Email Staff</th>
+            <th>Status Staff</th>
+            <th>Setup Staff</th>
+        </tr>
+        <tr>
+            <td>
+                <img src="<%= staff.avatar_staff %>" alt="Avatar" width="100" height="100">
+            </td>
+            <td>
+                <%= staff.name_staff %>
+            </td>
+            <td>
+                <%= staff.email_staff %>
+            </td>
+            <td>
+                <%= staff.status_staff %>
+            </td>
+            <td>
+                <%= staff.setup_staff %>
+            </td>
+        </tr>
+    <% } else { %>
+        <p>No staff information available.</p>
+    <% } %>
+</table>
+
+<!-- Form change password -->
+<h2>Change Password</h2>
+<form action="/staff/change-password-staff" method="POST">
+    <label for="currentPassword">Current Password:</label>
+    <input type="password" id="currentPassword" name="currentPassword" required><br><br>
+
+    <label for="newPassword">New Password:</label>
+    <input type="password" id="newPassword" name="newPassword" required><br><br>
+
+    <label for="confirmPassword">Confirm New Password:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+
+    <input type="submit" value="Change Password">
+</form>
+
+<h1>Upload Avatar</h1>
+<form action="/staff/upload-avatar-staff" method="POST" enctype="multipart/form-data">
+    <label for="avatar">Upload Avatar:</label>
+    <input type="file" id="avatar_staff" name="avatar_staff" accept="image/*" required><br><br>
+    <input type="submit" value="Upload Avatar">
+</form>

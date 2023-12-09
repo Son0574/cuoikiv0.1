@@ -1,0 +1,44 @@
+<h1>List of Bills Customer</h1>
+<table>
+    <tr>
+        <th>Bill ID</th>
+        <th>Total Money</th>
+        <th>Total Products</th>
+        <th>Money Given</th>
+        <th>Money Back</th>
+        <th>Date</th>
+        <th>Customer ID</th>
+        <th>Staff ID</th>
+    </tr>
+    <% list_bill_customer.forEach(bill_customer=> { %>
+        <tr>
+            <td>
+                <%= bill_customer._id %>
+            </td>
+            <td>
+                <%= bill_customer.total_money_bill %>
+            </td>
+            <td>
+                <%= bill_customer.total_product_bill %>
+            </td>
+            <td>
+                <%= bill_customer.money_give_bill %>
+            </td>
+            <td>
+                <%= bill_customer.money_back_bill %>
+            </td>
+            <td>
+                <%= bill_customer.date_bill %>
+            </td>
+            <td>
+                <%= bill_customer.id_customer %>
+            </td>
+            <td>
+                <%= bill_customer.id_staff %>
+            </td>
+            <td>
+                <a href="/staff/list-detail-bill-customer/<%= bill_customer._id %>">Xem chi tiết đơn hàng</a>
+            </td>
+        </tr>
+        <% }) %>
+</table>
